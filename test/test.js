@@ -107,6 +107,14 @@ describe("Gilded Rose", function() {
             assert.equal(updated_items[0].sell_in, -1);
         });
 
+        it("x", function() {   
+            const items = [];
+
+            items.push(new gilded_rose.Item('Sulfuras, Hand of Ragnaros', -50, 80)); 
+            const updated_items = gilded_rose.update_quality(items);
+            assert.equal(updated_items, null);
+        });
+
     })
 });
   
