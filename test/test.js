@@ -183,14 +183,14 @@ describe("Gilded Rose", function() {
             });
 
 
-            it("x", function() {   
+            it("should drop from -1 to -2 when quality is 20", function() {   
                 const items = [];
     
                 const sell_in = -1;
                 const quality = 20;
                 items.push(new gilded_rose.Item('Backstage passes to a TAFKAL80ETC concert', sell_in, quality));
                 const updated_items = gilded_rose.update_quality(items);
-                assert.equal(updated_items, null);
+                assert.equal(updated_items[0].sell_in, sell_in-1);
             });
 
         });
