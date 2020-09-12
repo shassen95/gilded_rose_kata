@@ -1,0 +1,26 @@
+{
+  "name": "gilded-rose-javascript",
+  "version": "1.0.0",
+  "description": "A testing kata",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guyroyse/gilded-rose-javascript.git"
+  },
+  "author": "si",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guyroyse/gilded-rose-javascript/issues"
+  },
+  "homepage": "https://github.com/guyroyse/gilded-rose-javascript#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^8.1.3"
+  }
+}
