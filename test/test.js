@@ -227,7 +227,7 @@ describe("Gilded Rose", function() {
                 assert.equal(updated_items[0].quality, quality+3);
             });
 
-            it("should set be set to 0 from 20 when sell_in is 0", function() {   
+            it("should be set to 0 from 20 when sell_in is 0", function() {   
                 const items = [];
     
                 const sell_in = 0;
@@ -237,14 +237,14 @@ describe("Gilded Rose", function() {
                 assert.equal(updated_items[0].quality, 0);
             });
 
-            it("x", function() {   
+            it("should be set to 0 from 20 when sell_in is -1", function() {   
                 const items = [];
     
                 const sell_in = -1;
                 const quality = 20;
                 items.push(new gilded_rose.Item('Backstage passes to a TAFKAL80ETC concert', sell_in, quality));
                 const updated_items = gilded_rose.update_quality(items);
-                assert.equal(updated_items, null);
+                assert.equal(updated_items[0].quality, 0);
             });
 
         });
