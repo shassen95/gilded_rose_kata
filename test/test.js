@@ -71,6 +71,14 @@ describe("Gilded Rose", function() {
         assert.equal(updated_items[0].quality, 0);
     });
 
+    it("x", function() {   
+        const items = [];
+
+        items.push(new gilded_rose.Item('+5 Dexterity Vest', 10, -1));     
+        const updated_items = gilded_rose.update_quality(items);
+        assert.equal(updated_items, null);
+    });
+
   
   });
   
