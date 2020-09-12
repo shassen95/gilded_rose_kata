@@ -237,6 +237,16 @@ describe("Gilded Rose", function() {
                 assert.equal(updated_items[0].quality, 0);
             });
 
+            it("x", function() {   
+                const items = [];
+    
+                const sell_in = -1;
+                const quality = 20;
+                items.push(new gilded_rose.Item('Backstage passes to a TAFKAL80ETC concert', sell_in, quality));
+                const updated_items = gilded_rose.update_quality(items);
+                assert.equal(updated_items, null);
+            });
+
         });
     });
 });
