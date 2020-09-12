@@ -91,10 +91,18 @@ describe("Gilded Rose", function() {
 
     describe("Legendary Items", function(){
 
-        it("x", function() {   
+        it("should not change sell_in when it is 0", function() {   
             const items = [];
 
             items.push(new gilded_rose.Item('Sulfuras, Hand of Ragnaros', 0, 80)); 
+            const updated_items = gilded_rose.update_quality(items);
+            assert.equal(updated_items[0].sell_in, 0);
+        });
+
+        it("x", function() {   
+            const items = [];
+
+            items.push(new gilded_rose.Item('Sulfuras, Hand of Ragnaros', -1, 80)); 
             const updated_items = gilded_rose.update_quality(items);
             assert.equal(updated_items, null);
         });
