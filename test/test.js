@@ -150,15 +150,28 @@ describe("Gilded Rose", function() {
     });
 
     describe("Backstage Pass Items", function(){
+        describe("Sell-In", function(){
 
-        it("x", function() {   
-            const items = [];
+            it("should drop from 15 to 14 when quality is 20", function() {   
+                const items = [];
+    
+                const sell_in = 15;
+                const quality = 20;
+                items.push(new gilded_rose.Item('Backstage passes to a TAFKAL80ETC concert', sell_in, quality));
+                const updated_items = gilded_rose.update_quality(items);
+                assert.equal(updated_items[0].sell_in, sell_in-1);
+            });
 
-            const sell_in = 15;
-            const quality = 20;
-            items.push(new gilded_rose.Item('Backstage passes to a TAFKAL80ETC concert', sell_in, quality));
-            const updated_items = gilded_rose.update_quality(items);
-            assert.equal(updated_items, null);
+            it("x", function() {   
+                const items = [];
+    
+                const sell_in = 1;
+                const quality = 20;
+                items.push(new gilded_rose.Item('Backstage passes to a TAFKAL80ETC concert', sell_in, quality));
+                const updated_items = gilded_rose.update_quality(items);
+                assert.equal(updated_items, null);
+            });
+
         });
     });
 });
