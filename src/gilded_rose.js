@@ -32,7 +32,13 @@ const refresh_quality = (items) => {
   });
 };
 const update_sell_in = (items) => {
-  return items.map((item) => change_sell_in(item, -SELL_IN_CHANGE));
+  return items.map((item) => {
+    if (item.name == 'Sulfuras, Hand of Ragnaros'){
+      return change_sell_in(item, 0);
+    } else {
+      return change_sell_in(item, -SELL_IN_CHANGE);
+    }
+  });
 };
 
 const sell_by_date_is_in_the_future = (item) => item.sell_in > 0;
