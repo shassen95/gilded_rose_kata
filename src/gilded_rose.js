@@ -16,6 +16,7 @@ exports.update_quality = function(items){
   return items.map((item) => {
     const newItem = {...item}
     newItem.sell_in -= 1;
+    newItem.quality -= 1;
     return newItem;
   });
 }
