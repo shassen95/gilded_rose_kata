@@ -316,6 +316,16 @@ describe("Gilded Rose", function() {
                 assert.equal(updated_items[0].quality, quality+1);
             });
 
+            it("x", function() {   
+                const items = [];
+    
+                const sell_in = 0;
+                const quality = 20;
+                items.push(new gilded_rose_items.Item('Aged Brie', sell_in, quality));
+                const updated_items = gilded_rose.update_quality(items);
+                assert.equal(updated_items, null);
+            });
+
             it("should increase from 25 to 27 when sell_in is -1", function() {   
                 const items = [];
     
