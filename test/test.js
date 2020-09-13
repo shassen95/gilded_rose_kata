@@ -304,6 +304,16 @@ describe("Gilded Rose", function() {
                 const updated_items = gilded_rose.update_quality(items);
                 assert.equal(updated_items[0].quality, quality+1);
             });
+
+            it("", function() {   
+                const items = [];
+    
+                const sell_in = 1;
+                const quality = 50;
+                items.push(new gilded_rose.Item('Aged Brie', sell_in, quality));
+                const updated_items = gilded_rose.update_quality(items);
+                assert.equal(updated_items, null);
+            });
         })
     })
 });
