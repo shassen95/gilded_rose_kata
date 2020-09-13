@@ -11,6 +11,7 @@ Object.freeze(constants);
 exports.constants = constants;
 
 exports.is_legendary = (item) => get_item_type(item) == item_types.LEGENDARY;
+exports.is_well_aged = (item) => get_item_type(item) == item_types.WELL_AGED;
 exports.is_backstage_pass = (item) => get_item_type(item) == item_types.BACKSTAGE_PASS;
 exports.get_quality_change_multiplier_for_backstage_pass = (item) => {
   const sell_in = item.sell_in;
@@ -35,11 +36,16 @@ const get_item_type = (item) => {
   if (backstage_pass.includes(item.name)){
     return item_types.BACKSTAGE_PASS;
   }
+  const well_aged = ['Aged Brie'];
+  if (well_aged.includes(item.name)){
+    return item_types.WELL_AGED;
+  }
 
   return item_types.STANDARD;
 }
 const item_types = {
   STANDARD: 0,
   LEGENDARY: 1,
-  BACKSTAGE_PASS: 2
+  BACKSTAGE_PASS: 2,
+  WELL_AGED: 3
 }
