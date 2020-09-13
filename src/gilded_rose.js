@@ -20,7 +20,11 @@ const refresh_quality = (items) => {
   return items.map((item) => {
     let newItem = {...item};
     if (item_utility.is_backstage_pass(newItem)){
-      newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE)
+      if (newItem.sell_in > 10){
+        newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE);
+      } else if (newItem.sell_in <= 10 && newItem.sell_in >= 6){
+        newItem = change_quality(newItem, 2*item_utility.constants.QUALITY_CHANGE);
+      }
     } else if (quality_is_positive(newItem)){
       if (sell_by_date_is_in_the_future(newItem)){
         newItem = change_quality(newItem, -item_utility.constants.QUALITY_CHANGE);
