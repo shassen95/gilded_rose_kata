@@ -305,7 +305,17 @@ describe("Gilded Rose", function() {
                 assert.equal(updated_items[0].quality, quality+1);
             });
 
-            it("should not change when sell_in is 1", function() {   
+            it("should increase from 25 to 27 when sell_in is -1", function() {   
+                const items = [];
+    
+                const sell_in = -1;
+                const quality = 25;
+                items.push(new gilded_rose.Item('Aged Brie', sell_in, quality));
+                const updated_items = gilded_rose.update_quality(items);
+                assert.equal(updated_items[0].quality, quality+2);
+            });
+
+            it("should not change when its 50 and sell_in is 1", function() {   
                 const items = [];
     
                 const sell_in = 1;
@@ -313,16 +323,6 @@ describe("Gilded Rose", function() {
                 items.push(new gilded_rose.Item('Aged Brie', sell_in, quality));
                 const updated_items = gilded_rose.update_quality(items);
                 assert.equal(updated_items[0].quality, quality);
-            });
-
-            it("x", function() {   
-                const items = [];
-    
-                const sell_in = -1;
-                const quality = 25;
-                items.push(new gilded_rose.Item('Aged Brie', sell_in, quality));
-                const updated_items = gilded_rose.update_quality(items);
-                assert.equal(updated_items, null);
             });
         })
     })
