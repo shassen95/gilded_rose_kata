@@ -42,8 +42,10 @@ const refresh_quality_backstage_pass = (item) => {
     newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE);
   } else if (newItem.sell_in <= 10 && newItem.sell_in >= 6){
     newItem = change_quality(newItem, 2*item_utility.constants.QUALITY_CHANGE);
-  } else if (newItem.sell_in <= 5 && newItem.sell_in >= 0){
+  } else if (newItem.sell_in <= 5 && newItem.sell_in >= 1){
     newItem = change_quality(newItem, 3*item_utility.constants.QUALITY_CHANGE);
+  } else {
+    newItem = change_quality(newItem, -newItem.quality);
   }
   return newItem;
 }
