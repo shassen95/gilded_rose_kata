@@ -16,11 +16,13 @@ exports.Item = function Item(name, sell_in, quality) {
 // items.push(new Item('Conjured Mana Cake', 3, 6));
 exports.update_quality = function(items){
   return items.map((item) => {
-    let newItem = {...item}
-    if (newItem.sell_in <= 0){
-      newItem = change_quality(newItem, -2*QUALITY_CHANGE);
-    } else {
-      newItem = change_quality(newItem, -QUALITY_CHANGE);
+    let newItem = {...item};
+    if (newItem.quality != 0){
+      if (newItem.sell_in <= 0){
+        newItem = change_quality(newItem, -2*QUALITY_CHANGE);
+      } else {
+        newItem = change_quality(newItem, -QUALITY_CHANGE);
+      } 
     }
     newItem = change_sell_in(newItem, -SELL_IN_CHANGE);
     return newItem;
