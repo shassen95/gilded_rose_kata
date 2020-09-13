@@ -273,14 +273,14 @@ describe("Gilded Rose", function() {
                 assert.equal(updated_items[0].sell_in, sell_in-1);
             });
 
-            it("sx", function() {   
+            it("should decrease from 1 to 0 when quality is 0", function() {   
                 const items = [];
 
                 const sell_in = 1;
                 const quality = 0;
                 items.push(new gilded_rose.Item('Aged Brie', sell_in, quality));
                 const updated_items = gilded_rose.update_quality(items);
-                assert.equal(updated_items, null);
+                assert.equal(updated_items[0].sell_in, sell_in-1);
             });
         })
     })
