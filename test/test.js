@@ -59,6 +59,16 @@ describe("Gilded Rose", function() {
                 assert.equal(updated_items[0].quality, 18);
             });
     
+            it("x", function() {   
+                const items = [];
+    
+                const sell_in = -1;
+                const quality = 20;
+                items.push(new gilded_rose.Item('+5 Dexterity Vest', -1, quality));     
+                const updated_items = gilded_rose.update_quality(items);
+                assert.equal(updated_items, null);
+            });
+    
             it("should decrease from 1 to 0 when sell_in is 10", function() {   
                 const items = [];
     
