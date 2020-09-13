@@ -9,32 +9,29 @@ const item_utility = require('./item');
 // items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 // items.push(new Item('Conjured Mana Cake', 3, 6));
 exports.update_quality = function(items){
-  let updated_items = refresh_quality(items);
-  return update_sell_in(updated_items);
+  const legendary_items = items.filter(item_utility.is_legendary);
+  const non_legendary_items = items.filter((item) => !item_utility.is_legendary(item))
+  const quality_updated_items = refresh_quality(non_legendary_items);
+  const sell_in_updated_items = update_sell_in(quality_updated_items);
+
+  return [...legendary_items, ...sell_in_updated_items];
 }
 const refresh_quality = (items) => {
   return items.map((item) => {
     let newItem = {...item};
-    if (!item_utility.is_legendary(newItem)){
-      if (quality_is_positive(newItem)){
-        if (sell_by_date_is_in_the_future(newItem)){
-          newItem = change_quality(newItem, -item_utility.constants.QUALITY_CHANGE);
-        } else {
-          newItem = change_quality(newItem, -2*item_utility.constants.QUALITY_CHANGE);
-        } 
-      }
+
+    if (quality_is_positive(newItem)){
+      if (sell_by_date_is_in_the_future(newItem)){
+        newItem = change_quality(newItem, -item_utility.constants.QUALITY_CHANGE);
+      } else {
+        newItem = change_quality(newItem, -2*item_utility.constants.QUALITY_CHANGE);
+      } 
     }
     return newItem;
   });
 };
 const update_sell_in = (items) => {
-  return items.map((item) => {
-    if (item_utility.is_legendary(item)){
-      return change_sell_in(item, 0);
-    } else {
-      return change_sell_in(item, -item_utility.constants.SELL_IN_CHANGE);
-    }
-  });
+  return items.map((item) => change_sell_in(item, -item_utility.constants.SELL_IN_CHANGE));
 };
 
 const sell_by_date_is_in_the_future = (item) => item.sell_in > 0;
