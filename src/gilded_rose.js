@@ -15,8 +15,12 @@ exports.Item = function Item(name, sell_in, quality) {
 exports.update_quality = function(items){
   return items.map((item) => {
     const newItem = {...item}
+    if (newItem.sell_in == 0){
+      newItem.quality -= 2;
+    } else {
+      newItem.quality -= 1;
+    }
     newItem.sell_in -= 1;
-    newItem.quality -= 1;
     return newItem;
   });
 }
