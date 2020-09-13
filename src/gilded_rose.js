@@ -13,7 +13,11 @@ exports.Item = function Item(name, sell_in, quality) {
 // items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 // items.push(new Item('Conjured Mana Cake', 3, 6));
 exports.update_quality = function(items){
-
+  return items.map((item) => {
+    const newItem = {...item}
+    newItem.sell_in -= 1;
+    return newItem;
+  });
 }
 exports.update_quality_old = function update_quality(items) {
   for (var i = 0; i < items.length; i++) {
