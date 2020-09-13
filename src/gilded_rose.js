@@ -38,12 +38,9 @@ const refresh_quality_standard = (item) => {
 }
 const refresh_quality_backstage_pass = (item) => {
   let newItem = {...item};
-  if (newItem.sell_in > 10){
-    newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE);
-  } else if (newItem.sell_in <= 10 && newItem.sell_in >= 6){
-    newItem = change_quality(newItem, 2*item_utility.constants.QUALITY_CHANGE);
-  } else if (newItem.sell_in <= 5 && newItem.sell_in >= 1){
-    newItem = change_quality(newItem, 3*item_utility.constants.QUALITY_CHANGE);
+  const multiplier = item_utility.get_quality_change_multiplier_for_backstage_pass(item);
+  if (multiplier > 0){
+    newItem = change_quality(newItem, multiplier*item_utility.constants.QUALITY_CHANGE);
   } else {
     newItem = change_quality(newItem, -newItem.quality);
   }
