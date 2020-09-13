@@ -1,3 +1,5 @@
+const QUALITY_CHANGE = 1;
+const SELL_IN_CHANGE = 1;
 exports.Item = function Item(name, sell_in, quality) {
   this.name = name;
   this.sell_in = sell_in;
@@ -14,16 +16,26 @@ exports.Item = function Item(name, sell_in, quality) {
 // items.push(new Item('Conjured Mana Cake', 3, 6));
 exports.update_quality = function(items){
   return items.map((item) => {
-    const newItem = {...item}
+    let newItem = {...item}
     if (newItem.sell_in == 0){
-      newItem.quality -= 2;
+      newItem = change_quality(newItem, -2*QUALITY_CHANGE);
     } else {
-      newItem.quality -= 1;
+      newItem = change_quality(newItem, -QUALITY_CHANGE);
     }
-    newItem.sell_in -= 1;
+    newItem = change_sell_in(newItem, -SELL_IN_CHANGE);
     return newItem;
   });
 }
+const change_sell_in = (item, sell_in_change) => {
+  const newItem = {...item};
+  newItem.sell_in += sell_in_change;
+  return newItem;
+};
+const change_quality = (item, quality_change) => {
+  const newItem = {...item};
+  newItem.quality += quality_change;
+  return newItem;
+};
 exports.update_quality_old = function update_quality(items) {
   for (var i = 0; i < items.length; i++) {
     if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
