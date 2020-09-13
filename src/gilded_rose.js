@@ -15,6 +15,10 @@ exports.Item = function Item(name, sell_in, quality) {
 // items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 // items.push(new Item('Conjured Mana Cake', 3, 6));
 exports.update_quality = function(items){
+  let updated_items = refresh_quality(items);
+  return update_sell_in(updated_items);
+}
+const refresh_quality = (items) => {
   return items.map((item) => {
     let newItem = {...item};
     if (quality_is_positive(newItem)){
@@ -24,10 +28,13 @@ exports.update_quality = function(items){
         newItem = change_quality(newItem, -2*QUALITY_CHANGE);
       } 
     }
-    newItem = change_sell_in(newItem, -SELL_IN_CHANGE);
     return newItem;
   });
-}
+};
+const update_sell_in = (items) => {
+  return items.map((item) => change_sell_in(item, -SELL_IN_CHANGE));
+};
+
 const sell_by_date_is_in_the_future = (item) => item.sell_in > 0;
 const quality_is_positive = (item) => item.quality > 0;
 const change_sell_in = (item, sell_in_change) => {
