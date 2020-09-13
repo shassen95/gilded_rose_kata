@@ -15,12 +15,14 @@ exports.update_quality = function(items){
 const refresh_quality = (items) => {
   return items.map((item) => {
     let newItem = {...item};
-    if (quality_is_positive(newItem)){
-      if (sell_by_date_is_in_the_future(newItem)){
-        newItem = change_quality(newItem, -item_utility.constants.QUALITY_CHANGE);
-      } else {
-        newItem = change_quality(newItem, -2*item_utility.constants.QUALITY_CHANGE);
-      } 
+    if (!item_utility.is_legendary(newItem)){
+      if (quality_is_positive(newItem)){
+        if (sell_by_date_is_in_the_future(newItem)){
+          newItem = change_quality(newItem, -item_utility.constants.QUALITY_CHANGE);
+        } else {
+          newItem = change_quality(newItem, -2*item_utility.constants.QUALITY_CHANGE);
+        } 
+      }
     }
     return newItem;
   });
