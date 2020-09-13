@@ -17,17 +17,19 @@ exports.Item = function Item(name, sell_in, quality) {
 exports.update_quality = function(items){
   return items.map((item) => {
     let newItem = {...item};
-    if (newItem.quality > 0){
-      if (newItem.sell_in <= 0){
-        newItem = change_quality(newItem, -2*QUALITY_CHANGE);
-      } else {
+    if (quality_is_positive(newItem)){
+      if (sell_by_date_is_in_the_future(newItem)){
         newItem = change_quality(newItem, -QUALITY_CHANGE);
+      } else {
+        newItem = change_quality(newItem, -2*QUALITY_CHANGE);
       } 
     }
     newItem = change_sell_in(newItem, -SELL_IN_CHANGE);
     return newItem;
   });
 }
+const sell_by_date_is_in_the_future = (item) => item.sell_in > 0;
+const quality_is_positive = (item) => item.quality > 0;
 const change_sell_in = (item, sell_in_change) => {
   const newItem = {...item};
   newItem.sell_in += sell_in_change;
