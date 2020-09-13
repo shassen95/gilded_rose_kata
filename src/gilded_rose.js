@@ -1,10 +1,4 @@
-const QUALITY_CHANGE = 1;
-const SELL_IN_CHANGE = 1;
-exports.Item = function Item(name, sell_in, quality) {
-  this.name = name;
-  this.sell_in = sell_in;
-  this.quality = quality;
-}
+const item_utility = require('./item');
 
 // var items = []
 
@@ -23,9 +17,9 @@ const refresh_quality = (items) => {
     let newItem = {...item};
     if (quality_is_positive(newItem)){
       if (sell_by_date_is_in_the_future(newItem)){
-        newItem = change_quality(newItem, -QUALITY_CHANGE);
+        newItem = change_quality(newItem, -item_utility.constants.QUALITY_CHANGE);
       } else {
-        newItem = change_quality(newItem, -2*QUALITY_CHANGE);
+        newItem = change_quality(newItem, -2*item_utility.constants.QUALITY_CHANGE);
       } 
     }
     return newItem;
@@ -33,10 +27,10 @@ const refresh_quality = (items) => {
 };
 const update_sell_in = (items) => {
   return items.map((item) => {
-    if (item.name == 'Sulfuras, Hand of Ragnaros'){
+    if (item_utility.is_legendary(item)){
       return change_sell_in(item, 0);
     } else {
-      return change_sell_in(item, -SELL_IN_CHANGE);
+      return change_sell_in(item, -item_utility.constants.SELL_IN_CHANGE);
     }
   });
 };
