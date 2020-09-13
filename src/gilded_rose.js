@@ -19,8 +19,9 @@ exports.update_quality = function(items){
 const refresh_quality = (items) => {
   return items.map((item) => {
     let newItem = {...item};
-
-    if (quality_is_positive(newItem)){
+    if (newItem.name == 'Backstage passes to a TAFKAL80ETC concert'){
+      newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE)
+    } else if (quality_is_positive(newItem)){
       if (sell_by_date_is_in_the_future(newItem)){
         newItem = change_quality(newItem, -item_utility.constants.QUALITY_CHANGE);
       } else {
