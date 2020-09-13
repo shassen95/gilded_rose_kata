@@ -21,6 +21,8 @@ const refresh_quality = (items) => {
     let newItem = {...item};
     if (item_utility.is_backstage_pass(newItem)){
       newItem = refresh_quality_backstage_pass(newItem);
+    } else if (newItem.name == 'Aged Brie') {
+      newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE);
     } else if (quality_is_positive(newItem)){
       newItem = refresh_quality_standard(newItem);
     }
