@@ -20,27 +20,36 @@ const refresh_quality = (items) => {
   return items.map((item) => {
     let newItem = {...item};
     if (item_utility.is_backstage_pass(newItem)){
-      if (newItem.sell_in > 10){
-        newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE);
-      } else if (newItem.sell_in <= 10 && newItem.sell_in >= 6){
-        newItem = change_quality(newItem, 2*item_utility.constants.QUALITY_CHANGE);
-      }
+      newItem = refresh_quality_backstage_pass(newItem);
     } else if (quality_is_positive(newItem)){
-      if (sell_by_date_is_in_the_future(newItem)){
-        newItem = change_quality(newItem, -item_utility.constants.QUALITY_CHANGE);
-      } else {
-        newItem = change_quality(newItem, -2*item_utility.constants.QUALITY_CHANGE);
-      } 
+      newItem = refresh_quality_standard(newItem);
     }
     return newItem;
   });
 };
+const refresh_quality_standard = (item) => {
+  let newItem = {...item};
+  if (sell_by_date_is_in_the_future(newItem)){
+    newItem = change_quality(newItem, -item_utility.constants.QUALITY_CHANGE);
+  } else {
+    newItem = change_quality(newItem, -2*item_utility.constants.QUALITY_CHANGE);
+  } 
+  return newItem;
+}
+const refresh_quality_backstage_pass = (item) => {
+  let newItem = {...item};
+  if (newItem.sell_in > 10){
+    newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE);
+  } else if (newItem.sell_in <= 10 && newItem.sell_in >= 6){
+    newItem = change_quality(newItem, 2*item_utility.constants.QUALITY_CHANGE);
+  }
+  return newItem;
+}
+const sell_by_date_is_in_the_future = (item) => item.sell_in > 0;
+const quality_is_positive = (item) => item.quality > 0;
 const update_sell_in = (items) => {
   return items.map((item) => change_sell_in(item, -item_utility.constants.SELL_IN_CHANGE));
 };
-
-const sell_by_date_is_in_the_future = (item) => item.sell_in > 0;
-const quality_is_positive = (item) => item.quality > 0;
 const change_sell_in = (item, sell_in_change) => {
   const newItem = {...item};
   newItem.sell_in += sell_in_change;
