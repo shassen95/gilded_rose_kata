@@ -262,7 +262,16 @@ describe("Gilded Rose", function() {
 
     describe("Aged Brie", function(){
         describe("Sell-In", function() {
-            
+
+            it("x", function() {   
+                const items = [];
+
+                const sell_in = 2;
+                const quality = 0;
+                items.push(new gilded_rose.Item('Aged Brie', sell_in, quality));
+                const updated_items = gilded_rose.update_quality(items);
+                assert.equal(updated_items, null);
+            });
         })
     })
 });
