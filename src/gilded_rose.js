@@ -30,13 +30,15 @@ const refresh_quality = (items) => {
   });
 };
 const refresh_quality_well_aged = (item) => {
-  return change_quality_wrapper(item, true);
+  const increase_quality = true;
+  return change_quality_wrapper(item, increase_quality);
 }
 const refresh_quality_standard = (item) => {
-  return change_quality_wrapper(item, false);
+  const increase_quality = false;
+  return change_quality_wrapper(item, increase_quality);
 }
-const change_quality_wrapper = (item, increase) => {
-  const multiplier = increase ? 1 : -1;
+const change_quality_wrapper = (item, increase_quality) => {
+  const multiplier = increase_quality ? 1 : -1;
   let newItem = {...item};
   if (sell_by_date_is_in_the_future(newItem)){
     newItem = change_quality(newItem, multiplier*item_utility.constants.QUALITY_CHANGE);
