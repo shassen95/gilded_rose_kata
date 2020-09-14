@@ -19,12 +19,14 @@ exports.update_quality = function(items){
 const refresh_quality = (items) => {
   return items.map((item) => {
     let newItem = {...item};
-    if (item_utility.is_backstage_pass(newItem)){
-      newItem = refresh_quality_backstage_pass(newItem);
-    } else if (item_utility.is_well_aged(newItem)) {
-      newItem = refresh_quality_well_aged(newItem);
-    } else if (quality_is_positive(newItem)){
-      newItem = refresh_quality_standard(newItem);
+    if (newItem.quality != 50){
+      if (item_utility.is_backstage_pass(newItem)){
+        newItem = refresh_quality_backstage_pass(newItem);
+      } else if (item_utility.is_well_aged(newItem)) {
+        newItem = refresh_quality_well_aged(newItem);
+      } else if (quality_is_positive(newItem)){
+        newItem = refresh_quality_standard(newItem);
+      }
     }
     return newItem;
   });
