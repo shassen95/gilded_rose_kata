@@ -5,7 +5,8 @@ exports.Item = function Item(name, sell_in, quality) {
 }
 const constants = {
   QUALITY_CHANGE: 1,
-  SELL_IN_CHANGE: 1
+  SELL_IN_CHANGE: 1,
+  MAX_QUALITY: 50
 }
 Object.freeze(constants); 
 exports.constants = constants;
