@@ -30,20 +30,18 @@ const refresh_quality = (items) => {
   });
 };
 const refresh_quality_well_aged = (item) => {
-  let newItem = {...item};
-  if (sell_by_date_is_in_the_future(newItem)){
-    newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE);
-  } else {
-    newItem = change_quality(newItem, 2*item_utility.constants.QUALITY_CHANGE);
-  }
-  return newItem;
+  return change_quality_wrapper(item, true);
 }
 const refresh_quality_standard = (item) => {
+  return change_quality_wrapper(item, false);
+}
+const change_quality_wrapper = (item, increase) => {
+  const multiplier = increase ? 1 : -1;
   let newItem = {...item};
   if (sell_by_date_is_in_the_future(newItem)){
-    newItem = change_quality(newItem, -item_utility.constants.QUALITY_CHANGE);
+    newItem = change_quality(newItem, multiplier*item_utility.constants.QUALITY_CHANGE);
   } else {
-    newItem = change_quality(newItem, -2*item_utility.constants.QUALITY_CHANGE);
+    newItem = change_quality(newItem, multiplier*2*item_utility.constants.QUALITY_CHANGE);
   } 
   return newItem;
 }
