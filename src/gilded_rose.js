@@ -33,7 +33,11 @@ const refresh_quality = (items) => {
 };
 const refresh_quality_well_aged = (item) => {
   const increase_quality = true;
-  return change_quality_wrapper(item, increase_quality);
+  let newItem = {...item};
+  if (newItem.quality < 50){
+    newItem = change_quality_wrapper(newItem, increase_quality);
+  }
+  return newItem;
 }
 const refresh_quality_standard = (item) => {
   const increase_quality = false;
