@@ -32,7 +32,7 @@ const refresh_quality = (items) => {
 const refresh_quality_well_aged = (item) => {
   const increase_quality = true;
   let newItem = {...item};
-  if (newItem.quality < item_utility.constants.MAX_QUALITY){
+  if (quality_can_be_improved(newItem)){
     newItem = change_quality_wrapper(newItem, increase_quality);
   }
   return newItem;
@@ -67,6 +67,7 @@ const refresh_quality_backstage_pass = (item) => {
 }
 const sell_by_date_is_in_the_future = (item) => item.sell_in > 0;
 const quality_is_positive = (item) => item.quality > 0;
+const quality_can_be_improved = (item) => item.quality < item_utility.constants.MAX_QUALITY;
 const update_sell_in = (items) => {
   return items.map((item) => change_sell_in(item, -item_utility.constants.SELL_IN_CHANGE));
 };
