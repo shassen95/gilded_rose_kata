@@ -20,12 +20,15 @@ const refresh_quality = (items) => {
   const backstage_pass_items = items
     .filter(item_utility.is_backstage_pass)
     .map(refresh_quality_backstage_pass);
+
   const well_aged_items = items
     .filter(item_utility.is_well_aged)
     .map(refresh_quality_well_aged);
+
   const conjured_items = items
-    .filter((item) => item.name == 'Conjured')
+    .filter(item_utility.is_conjured)
     .map(refresh_quality_conjured);
+
   const standard_items = items
     .filter(item_utility.is_standard)
     .map(refresh_quality_standard);
@@ -34,34 +37,36 @@ const refresh_quality = (items) => {
 };
 
 const refresh_quality_conjured = (item) => {
+  const multiplier = -2;
   let newItem = {...item};
-  newItem.quality -= 2;
+  if (quality_is_positive(newItem)){
+    newItem = change_quality_wrapper(item, multiplier);
+  }
   return newItem;
 }
 
 const refresh_quality_well_aged = (item) => {
-  const increase_quality = true;
+  const multiplier = 1;
   let newItem = {...item};
   if (quality_can_be_improved(newItem)){
-    newItem = change_quality_wrapper(newItem, increase_quality);
+    newItem = change_quality_wrapper(newItem, multiplier);
   }
   return newItem;
 }
 const refresh_quality_standard = (item) => {
-  const increase_quality = false;
+  const multiplier = -1;
   let newItem = {...item};
   if (quality_is_positive(newItem)){
-    newItem = change_quality_wrapper(item, increase_quality);
+    newItem = change_quality_wrapper(item, multiplier);
   }
   return newItem;
 }
-const change_quality_wrapper = (item, increase_quality) => {
-  const multiplier = increase_quality ? 1 : -1;
+const change_quality_wrapper = (item, multiplier) => {
   let newItem = {...item};
   if (sell_by_date_is_in_the_future(newItem)){
     newItem = change_quality(newItem, multiplier*item_utility.constants.QUALITY_CHANGE);
   } else {
-    newItem = change_quality(newItem, multiplier*2*item_utility.constants.QUALITY_CHANGE);
+    newItem = change_quality(newItem, 2*multiplier*item_utility.constants.QUALITY_CHANGE);
   } 
   return newItem;
 }

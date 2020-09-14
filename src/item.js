@@ -14,6 +14,7 @@ exports.constants = constants;
 exports.is_legendary = (item) => get_item_type(item) == item_types.LEGENDARY;
 exports.is_well_aged = (item) => get_item_type(item) == item_types.WELL_AGED;
 exports.is_backstage_pass = (item) => get_item_type(item) == item_types.BACKSTAGE_PASS;
+exports.is_conjured = (item) => get_item_type(item) == item_types.CONJURED;
 exports.is_standard = (item) => get_item_type(item) == item_types.STANDARD;
 
 exports.get_quality_change_multiplier_for_backstage_pass = (item) => {
@@ -34,7 +35,6 @@ const get_item_type = (item) => {
   if (legendary.includes(item.name)){
     return item_types.LEGENDARY;
   }
-
   const backstage_pass = ['Backstage passes to a TAFKAL80ETC concert'];
   if (backstage_pass.includes(item.name)){
     return item_types.BACKSTAGE_PASS;
@@ -43,6 +43,10 @@ const get_item_type = (item) => {
   if (well_aged.includes(item.name)){
     return item_types.WELL_AGED;
   }
+  const conjured = ['Conjured'];
+  if (conjured.includes(item.name)){
+    return item_types.CONJURED;
+  }
 
   return item_types.STANDARD;
 }
@@ -50,5 +54,6 @@ const item_types = {
   STANDARD: 0,
   LEGENDARY: 1,
   BACKSTAGE_PASS: 2,
-  WELL_AGED: 3
+  WELL_AGED: 3,
+  CONJURED: 4
 }
