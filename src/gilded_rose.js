@@ -8,7 +8,7 @@ const item_utility = require('./item');
 // items.push(new Item('Sulfuras, Hand of Ragnaros', 0, 80));
 // items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 // items.push(new Item('Conjured Mana Cake', 3, 6));
-exports.update_quality_new = function(items){
+exports.update_quality = function(items){
   const legendary_items = items.filter(item_utility.is_legendary);
   const non_legendary_items = items.filter((item) => !item_utility.is_legendary(item))
   const quality_updated_items = refresh_quality(non_legendary_items);
@@ -63,11 +63,15 @@ const refresh_quality_backstage_pass = (item) => {
   } else {
     newItem = change_quality(newItem, -newItem.quality);
   }
+  if (quality_is_inflated(newItem)){
+    newItem = change_quality(newItem, item_utility.constants.MAX_QUALITY-newItem.quality);
+  }
   return newItem;
 }
 const sell_by_date_is_in_the_future = (item) => item.sell_in > 0;
 const quality_is_positive = (item) => item.quality > 0;
 const quality_can_be_improved = (item) => item.quality < item_utility.constants.MAX_QUALITY;
+const quality_is_inflated = (item) => item.quality > item_utility.constants.MAX_QUALITY; 
 const update_sell_in = (items) => {
   return items.map((item) => change_sell_in(item, -item_utility.constants.SELL_IN_CHANGE));
 };
@@ -81,7 +85,7 @@ const change_quality = (item, quality_change) => {
   newItem.quality += quality_change;
   return newItem;
 };
-exports.update_quality = function update_quality(items) {
+exports.update_quality_old = function update_quality(items) {
   for (var i = 0; i < items.length; i++) {
     if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
       if (items[i].quality > 0) {
