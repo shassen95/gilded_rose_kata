@@ -17,18 +17,17 @@ exports.update_quality = function(items){
   return [...legendary_items, ...sell_in_updated_items];
 }
 const refresh_quality = (items) => {
-  return items.map((item) => {
-    let newItem = {...item};
+  const backstage_pass_items = items
+    .filter(item_utility.is_backstage_pass)
+    .map(refresh_quality_backstage_pass);
+  const well_aged_items = items
+    .filter(item_utility.is_well_aged)
+    .map(refresh_quality_well_aged);
+  const standard_items = items
+    .filter(item_utility.is_standard)
+    .map(refresh_quality_standard);
     
-    if (item_utility.is_backstage_pass(newItem)){
-      newItem = refresh_quality_backstage_pass(newItem);
-    } else if (item_utility.is_well_aged(newItem)) {
-      newItem = refresh_quality_well_aged(newItem);
-    } else if (quality_is_positive(newItem)){
-      newItem = refresh_quality_standard(newItem);
-    }
-    return newItem;
-  });
+  return [...backstage_pass_items, ...well_aged_items, ...standard_items]
 };
 const refresh_quality_well_aged = (item) => {
   const increase_quality = true;
@@ -40,7 +39,11 @@ const refresh_quality_well_aged = (item) => {
 }
 const refresh_quality_standard = (item) => {
   const increase_quality = false;
-  return change_quality_wrapper(item, increase_quality);
+  let newItem = {...item};
+  if (quality_is_positive(newItem)){
+    newItem = change_quality_wrapper(item, increase_quality);
+  }
+  return newItem;
 }
 const change_quality_wrapper = (item, increase_quality) => {
   const multiplier = increase_quality ? 1 : -1;

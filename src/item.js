@@ -14,6 +14,8 @@ exports.constants = constants;
 exports.is_legendary = (item) => get_item_type(item) == item_types.LEGENDARY;
 exports.is_well_aged = (item) => get_item_type(item) == item_types.WELL_AGED;
 exports.is_backstage_pass = (item) => get_item_type(item) == item_types.BACKSTAGE_PASS;
+exports.is_standard = (item) => get_item_type(item) == item_types.STANDARD;
+
 exports.get_quality_change_multiplier_for_backstage_pass = (item) => {
   const sell_in = item.sell_in;
   if (sell_in > 10){
