@@ -248,14 +248,14 @@ describe("Gilded Rose", function() {
                 assert.equal(updated_items[0].quality, quality+3);
             });
 
-            it("x", function() {   
+            it("should increase from 49 to 50 when sell_in is 1", function() {   
                 const items = [];
     
                 const sell_in = 1;
                 const quality = 49;
                 items.push(new gilded_rose_items.Item('Backstage passes to a TAFKAL80ETC concert', sell_in, quality));
                 const updated_items = gilded_rose.update_quality(items);
-                assert.equal(updated_items, null);
+                assert.equal(updated_items[0].quality, gilded_rose_items.constants.MAX_QUALITY);
             });
 
             it("should be set to 0 from 20 when sell_in is 0", function() {   
