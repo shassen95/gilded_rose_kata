@@ -22,17 +22,22 @@ const refresh_quality = (items) => {
     if (item_utility.is_backstage_pass(newItem)){
       newItem = refresh_quality_backstage_pass(newItem);
     } else if (item_utility.is_well_aged(newItem)) {
-      if (newItem.sell_in > 0){
-        newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE);
-      } else {
-        newItem = change_quality(newItem, 2*item_utility.constants.QUALITY_CHANGE);
-      }
+      newItem = refresh_quality_well_aged(newItem);
     } else if (quality_is_positive(newItem)){
       newItem = refresh_quality_standard(newItem);
     }
     return newItem;
   });
 };
+const refresh_quality_well_aged = (item) => {
+  let newItem = {...item};
+  if (sell_by_date_is_in_the_future(newItem)){
+    newItem = change_quality(newItem, item_utility.constants.QUALITY_CHANGE);
+  } else {
+    newItem = change_quality(newItem, 2*item_utility.constants.QUALITY_CHANGE);
+  }
+  return newItem;
+}
 const refresh_quality_standard = (item) => {
   let newItem = {...item};
   if (sell_by_date_is_in_the_future(newItem)){
