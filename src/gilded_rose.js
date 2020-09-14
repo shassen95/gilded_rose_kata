@@ -37,31 +37,22 @@ const refresh_quality = (items) => {
 };
 
 const refresh_quality_conjured = (item) => {
-  const multiplier = -2;
-  let newItem = {...item};
-  if (quality_is_positive(newItem)){
-    newItem = change_quality_wrapper(item, multiplier);
-  }
-  return newItem;
+  return change_quality_wrapper(item, -2, quality_is_positive);
 }
-
 const refresh_quality_well_aged = (item) => {
-  const multiplier = 1;
-  let newItem = {...item};
-  if (quality_can_be_improved(newItem)){
-    newItem = change_quality_wrapper(newItem, multiplier);
-  }
-  return newItem;
+  return change_quality_wrapper(item, 1, quality_can_be_improved);
 }
 const refresh_quality_standard = (item) => {
-  const multiplier = -1;
+  return change_quality_wrapper(item, -1, quality_is_positive);
+}
+const change_quality_wrapper = (item, multiplier, filterFunction) => {
   let newItem = {...item};
-  if (quality_is_positive(newItem)){
-    newItem = change_quality_wrapper(item, multiplier);
+  if (filterFunction(newItem)){
+    newItem = change_quality_according_to_sell_in(newItem, multiplier);
   }
   return newItem;
 }
-const change_quality_wrapper = (item, multiplier) => {
+const change_quality_according_to_sell_in = (item, multiplier) => {
   let newItem = {...item};
   if (sell_by_date_is_in_the_future(newItem)){
     newItem = change_quality(newItem, multiplier*item_utility.constants.QUALITY_CHANGE);
