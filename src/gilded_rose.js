@@ -23,12 +23,22 @@ const refresh_quality = (items) => {
   const well_aged_items = items
     .filter(item_utility.is_well_aged)
     .map(refresh_quality_well_aged);
+  const conjured_items = items
+    .filter((item) => item.name == 'Conjured')
+    .map(refresh_quality_conjured);
   const standard_items = items
     .filter(item_utility.is_standard)
     .map(refresh_quality_standard);
     
-  return [...backstage_pass_items, ...well_aged_items, ...standard_items]
+  return [...backstage_pass_items, ...well_aged_items, ...conjured_items, ...standard_items]
 };
+
+const refresh_quality_conjured = (item) => {
+  let newItem = {...item};
+  newItem.quality -= 2;
+  return newItem;
+}
+
 const refresh_quality_well_aged = (item) => {
   const increase_quality = true;
   let newItem = {...item};
