@@ -367,5 +367,20 @@ describe("Gilded Rose", function() {
             });
         })
     })
+
+    describe("Conjure", function(){
+        describe("Quality", function(){
+            
+            it("should decrease from 20 to 18 when sell_in is 1", function() {   
+                const items = [];
+    
+                const sell_in = 1;
+                const quality = 20;
+                items.push(new gilded_rose_items.Item('Conjured', sell_in, quality));
+                const updated_items = gilded_rose.update_quality(items);
+                assert.equal(updated_items[0].quality, quality-2*1);
+            });
+        })
+    })
 });
   
