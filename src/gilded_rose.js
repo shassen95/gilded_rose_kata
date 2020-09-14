@@ -8,7 +8,7 @@ const item_utility = require('./item');
 // items.push(new Item('Sulfuras, Hand of Ragnaros', 0, 80));
 // items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 // items.push(new Item('Conjured Mana Cake', 3, 6));
-exports.update_quality = function(items){
+exports.update_quality_new = function(items){
   const legendary_items = items.filter(item_utility.is_legendary);
   const non_legendary_items = items.filter((item) => !item_utility.is_legendary(item))
   const quality_updated_items = refresh_quality(non_legendary_items);
@@ -74,7 +74,7 @@ const change_quality = (item, quality_change) => {
   newItem.quality += quality_change;
   return newItem;
 };
-exports.update_quality_old = function update_quality(items) {
+exports.update_quality = function update_quality(items) {
   for (var i = 0; i < items.length; i++) {
     if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
       if (items[i].quality > 0) {
